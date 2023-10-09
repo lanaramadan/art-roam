@@ -5,38 +5,95 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.image-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #40362d;
+}
+
+.title {
+  line-height: 0%;
+  font-size: 5vh;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.slogan {
+  line-height: 0%;
+  font-size: 3vh;
+}
+
+.art-title {
+  line-height: 0%;
+  color: #40362d;
+  font-size: 5vh;
+  padding-bottom: 10px;
+}
+
+.characteristics {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.main-image {
+  height: 60vh;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+
+.frame {
+  /* picture credit: Chris Smith */
+  background-color: #ddd5cc;
+  border:solid 5vmin #eee;
+  border-bottom-color:#fff;
+  border-left-color:#eee;
+  border-radius: 2px;
+  border-right-color: #eee;
+  border-top-color: #ddd;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
+  box-sizing: border-box;
+  display: inline-block;
+  height: 55vh;
+  padding: 8vmin;
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  &:before {
+    border-radius: 2px;
+    bottom:- 2vmin;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.25) inset;
+    content: "";
+    left: -2vmin;
+    position: absolute;
+    right: -2vmin;
+    top:ddd-2vmin;
   }
-  to {
-    transform: rotate(360deg);
+  &:after {
+    border-radius: 2px;
+    bottom: -2.5vmin;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
+    content: "";
+    left: -2.5vmin;
+    position: absolute;
+    right: -2.5vmin;
+    top: -2.5vmin;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.generate {
+  width: 25%;
+  padding-top: 10px;
 }
