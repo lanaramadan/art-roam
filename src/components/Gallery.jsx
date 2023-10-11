@@ -17,7 +17,7 @@ const Gallery = ({ viewedImages }) => {
                 ))
             ) : (
                 <div>
-                <h3>You haven't made a screenshot yet!</h3>
+                <h3 className="none-title">You haven't viewed anything yet!</h3>
                 </div>
             )}
         </div>

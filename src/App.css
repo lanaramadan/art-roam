@@ -34,11 +34,24 @@ li {
   margin-bottom: 10px;
 }
 
+
+.banned-characteristic {
+  /* width: 20vw; */
+  margin-bottom: 10px;
+}
+
 .viewed-image-title {
   color: #33281e;
   font-size: small;
   margin-bottom: 5px;
 }
+
+.none-title {
+  color: #33281e;
+  font-size: medium;
+  margin-bottom: 5px;
+}
+
 
 .center-content {
   margin: 0 auto;

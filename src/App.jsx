@@ -2,12 +2,15 @@ import './App.css';
 import { useState } from 'react'
 import Image from './components/image'
 import Gallery from './components/Gallery'
+import Banned from './components/Banned'
+
 
 
 
 
 const App = () => {
   const [viewedImages, setViewedImages] = useState([]);
+  const [bannedCharacteristics, setBannedCharacteristics] = useState([]);
 
 
   return (
@@ -27,13 +30,15 @@ const App = () => {
           <h2 className='slogan'>Discover Art, One Click at a Time!</h2>
         </div>
 
-        <div className="image-display"><div className="image"><Image viewedImages={viewedImages} setViewedImages={setViewedImages}/></div></div>
+        <div className="image-display"><div className="image"><Image viewedImages={viewedImages} setViewedImages={setViewedImages} bannedCharacteristics={bannedCharacteristics} setBannedCharacteristics={setBannedCharacteristics}/></div></div>
       </div>
 
 
       <div className="right-content">
           <h3 className='subtitle'>Ban List</h3>
-          <div className="banned"></div>
+          <div className="banned">
+            <Banned bannedCharacteristics={bannedCharacteristics} setBannedCharacteristics={setBannedCharacteristics}/>
+          </div>
       </div>
       
     
