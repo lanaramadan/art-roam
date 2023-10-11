@@ -1,78 +1,43 @@
 import './App.css';
 import { useState } from 'react'
+import Image from './components/image'
+import Gallery from './components/Gallery'
+
+
 
 
 const App = () => {
-  const baseMuseumApiUrl = "https://api.artic.edu/api/v1/artworks?fields=artist_title,title,image_id,date_start,date_end,place_of_origin,medium_display,main_reference_number/search?q=monet?";
-  const baseImageApiUrl = "https://www.artic.edu/iiif/2/"
+  const [viewedImages, setViewedImages] = useState([]);
 
-  const [image, setImage] = useState("");
-  const [museumJsonData, setMuseumJsonData] = useState(null);
-  const [currentImageData, setCurrentImageData] = useState(null);
-
-  const getImage = () => {
-    let query = `${baseMuseumApiUrl}`;
-
-    const callMuseumAPI = async (query) => {
-      // calls the museum API
-      const response = await fetch(query);
-      const retreivedJson = await response.json();
-      setMuseumJsonData(retreivedJson)
-
-      setCurrentImageData(museumJsonData.data[3])
-
-      // gets the image link
-      const imageLink = `${baseImageApiUrl}/${currentImageData.image_id}/full/843,/0/default.jpg`
-      setImage(imageLink);
-    }
-
-    callMuseumAPI(query)
-  };
 
   return (
     <div className="App">
+    <div className="everything">
+      <div className="left-content">
+          <h3 className='subtitle'>Your Gallery</h3>
+          <div className="gallery">
+            <Gallery viewedImages={viewedImages} />
+          </div>
+      </div>
 
-      <div className="image-display">
 
+      <div className="center-content">
         <div className="header">
           <h1 className='title'>Art Roam 🖼️</h1>
           <h2 className='slogan'>Discover Art, One Click at a Time!</h2>
         </div>
 
-
-        <div className="art-description">
-          <h2 className='art-title'>{currentImageData.title}</h2>
-          <div className='characteristics'>
-            <button type="button" className="button characteristic" onClick={() => getImage()}>
-              Artist: {currentImageData.artist_title}
-            </button>
-
-            <button type="button" className="button characteristic" onClick={() => getImage()}>
-              Dates: {currentImageData.date_start}-{currentImageData.date_end}
-            </button>
-
-            <button type="button" className="button characteristic" onClick={() => getImage()}>
-              Country: {currentImageData.place_of_origin}
-            </button>
-
-            <button type="button" className="button characteristic" onClick={() => getImage()}>
-              Medium: {currentImageData.medium_display}
-            </button>
-          </div>
-        </div>
-
-
-        <div className="image-container">
-          <div className="frame"><img src={image} className='main-image'/></div>
-
-          <button type="button" className="button generate" onClick={() => getImage()}>
-            🔀 New Art!
-          </button>
-        </div>
-
-
+        <div className="image-display"><div className="image"><Image viewedImages={viewedImages} setViewedImages={setViewedImages}/></div></div>
       </div>
-     
+
+
+      <div className="right-content">
+          <h3 className='subtitle'>Ban List</h3>
+          <div className="banned"></div>
+      </div>
+      
+    
+    </div>  
     </div>
   )
 }

@@ -1,8 +1,48 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  /* padding: 2rem; */
   text-align: center;
+}
+
+.everything {
+  display: flex;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  /* align-items: center; */
+
+}
+
+.left-content,  .right-content {
+  background-color: #ddd5cc;
+  border: 4px solid #33281e;
+  width: 25vw;
+  height: calc(100vh - 40px - 8px);
+  margin: 20px;
+  padding-top: 0px;
+  overflow: auto;
+}
+
+li {
+  list-style-type: none;
+}
+
+.viewed-image {
+  /* width: 20vw; */
+  height: 15vw;
+  margin-bottom: 10px;
+}
+
+.viewed-image-title {
+  color: #33281e;
+  font-size: small;
+  margin-bottom: 5px;
+}
+
+.center-content {
+  margin: 0 auto;
+  align-self: center;
 }
 
 .image-display {
@@ -13,35 +53,61 @@
 }
 
 .header {
+  /* margin-top: 35px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #40362d;
+  /* justify-self: center; */
 }
 
 .title {
-  line-height: 0%;
   font-size: 5vh;
   margin-top: 0px;
   padding-top: 0px;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #33281e;
 }
 
 .slogan {
   line-height: 0%;
-  font-size: 3vh;
+  font-size: 2vh;
+  margin-top: 0px;
 }
 
 .art-title {
   line-height: 0%;
-  color: #40362d;
-  font-size: 5vh;
+  color: #33281e;
+  font-size: xx-large;
+  margin-top: 30px;
   padding-bottom: 10px;
+}
+
+.art-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .characteristics {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.characteristic:hover {
+  background-color: #8a7d70;
+  color: #33281e;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
 }
 
 .main-image {
@@ -70,6 +136,7 @@
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  min-width: 65vh;
   &:before {
     border-radius: 2px;
     bottom:- 2vmin;
@@ -96,4 +163,8 @@
 .generate {
   width: 25%;
   padding-top: 10px;
+}
+.generate:hover {
+  background-color: #8a7d70;
+  color: #33281e;
 }
