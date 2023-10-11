@@ -1,2 +1,5 @@
-# 👩‍💻 JavaScript Mini Projects (Work in Progress)
-**A collection of small projects built using HTML, CSS, and vanilla JavaScript**
+# 👩‍💻 Art Roam (Work in Progress)
+**Discover Art, One Click at a Time!**
+
+Current snapshot of Art Roam:
+<img src="src/assets/snapshot.png"/>
