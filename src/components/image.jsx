@@ -2,42 +2,75 @@ import React from "react";
 import { useState, useEffect } from 'react';
 
 const Image = ({ viewedImages, setViewedImages, bannedCharacteristics, setBannedCharacteristics}) => {
-    const baseMuseumApiUrl = "https://api.artic.edu/api/v1/artworks?fields=artist_title,title,image_id,place_of_origin,medium_display,main_reference_number/search?q=monet";
-    const baseImageApiUrl = "https://www.artic.edu/iiif/2/"
+    const baseApiUrl = "https://iiif.harvardartmuseums.org/manifests/object/"
   
     const [image, setImage] = useState("");
-    const [museumJsonData, setMuseumJsonData] = useState(null);
     const [currentImageData, setCurrentImageData] = useState(null);
+    const [currentImageDetails, setCurrentImageDetails] = useState({artist: "", title: "", date: "", culture: ""});
+
 
     const getImageData = async (query) => {
-        // calls the museum API + changes what the current image is
+        try {
+            // calls the API + changes what the currentImageData is
+            const response = await fetch(query);
+        
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+            }
+      
+            const retreivedJson = await response.json();
 
-        const response = await fetch(query);
-        const retreivedJson = await response.json();
-        setMuseumJsonData(retreivedJson)
+            if (retreivedJson.thumbnail["@id"] == "/full/!170,170/0/default.jpg") {
+                throw new Error('Thumbnail data is missing or broken link.');
+            }
+      
+          console.log(retreivedJson);
+          setCurrentImageData(retreivedJson);
+        }
 
-        setCurrentImageData(museumJsonData.data[5])
-    }
+        catch (error) {
+            console.error(`Error fetching or processing data: ${error.message}`);
+        }
+
+      };
 
     const setImageData = () => {
         if (currentImageData) {
-            // gets + sets the image link
-            const imageLink = `${baseImageApiUrl}${currentImageData.image_id}/full/843,/0/default.jpg`
-            setImage(imageLink);
+            // sets the image link from the new currentImageData
+            const newDetails = {
+                artist: currentImageData.metadata[4].value[0].split(",")[0],
+                title: currentImageData.label,
+                date: "Date: " + currentImageData.metadata[0].value,
+                culture: "Culture: " + currentImageData.metadata[4].value[0].split(", ")[1]
+              };
 
-            // add to viewed images
-            setViewedImages((viewedImages) => [...viewedImages, [imageLink, currentImageData]]);
+            const imageLink = currentImageData.thumbnail["@id"]
+            setImage(imageLink);
+            setCurrentImageDetails(newDetails);
+
+            // add the current image to viewed images
+            // setViewedImages((viewedImages) => [...viewedImages, [imageLink, currentImageDetails.title, currentImageDetails.artist]]);
+            setViewedImages((viewedImages) => [...viewedImages, {title: currentImageDetails.title, artist: currentImageDetails.artist, imageSrc: imageLink,}]);
+
         }
     }
 
 
     const displayImage = () => {
         // function to call functions that get and display new image
-        let query = `${baseMuseumApiUrl}`;
+        const randomObjectID = Math.floor(Math.random() * (299999 - 200000 + 1)) + 200000;
+        let query = `${baseApiUrl}${randomObjectID}`;
   
         getImageData(query)
-        // setImageData()
     };
+
+    // Use useEffect to call displayImage when the component mounts
+    useEffect(() => {
+        displayImage();
+    }, []);
+
+
+    // when currentImageData changes, setImageData() is called
     useEffect(() => {setImageData();}, [currentImageData]);
 
 
@@ -54,21 +87,21 @@ const Image = ({ viewedImages, setViewedImages, bannedCharacteristics, setBanned
             <div className="art-description">
                 {currentImageData ? 
                     (<>
-                    <h2 className='art-title'>{currentImageData.title}</h2>
+                    <h2 className='art-title'>{currentImageDetails.title}</h2>
                     <div className='characteristics'>
                         {/* artist button */}
-                        <button type="button" className="button characteristic" onClick={() => banCharacteristic("artist", currentImageData.artist_title)}>
-                        Artist: {currentImageData.artist_title}
+                        <button type="button" className="button characteristic" onClick={() => banCharacteristic("artist", currentImageDetails.artist)}>
+                        {currentImageDetails.artist}
                         </button>
 
-                        {/* origin button */}
-                        <button type="button" className="button characteristic" onClick={() => banCharacteristic("place_of_origin", currentImageData.place_of_origin)}>
-                        Country: {currentImageData.place_of_origin}
+                        {/* culture button */}
+                        <button type="button" className="button characteristic" onClick={() => banCharacteristic("culture", currentImageDetails.culture)}>
+                        {currentImageDetails.culture}
                         </button>
 
                         {/* medium button */}
-                        <button type="button" className="button characteristic" onClick={() => banCharacteristic("medium_display", currentImageData.medium_display)}>
-                        Medium: {currentImageData.medium_display}
+                        <button type="button" className="button characteristic" onClick={() => banCharacteristic("date", currentImageDetails.date)}>
+                        {currentImageDetails.date}
                         </button>
                     </div>
                     </>)

@@ -43,6 +43,13 @@ li {
 .viewed-image-title {
   color: #33281e;
   font-size: small;
+  line-height: 2px;
+}
+
+.viewed-image-artist {
+  color: #33281e;
+  font-size: small;
+  line-height: 2px;
   margin-bottom: 5px;
 }
 

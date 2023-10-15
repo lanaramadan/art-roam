@@ -8,10 +8,11 @@ const Gallery = ({ viewedImages }) => {
             {viewedImages && viewedImages.length > 0 ? (
                 viewedImages.map((image, index) => (
                 <li>
-                    <h4 className="viewed-image-title">{image[1].title} by {image[1].artist_title}</h4>
+                    <h4 className="viewed-image-title">Title: {image.title}</h4>
+                    <h4 className="viewed-image-artist">{image.artist}</h4>
                     <img
                     className="viewed-image"
-                    src={image[0]}
+                    src={image.imageSrc}
                     />
                 </li>
                 ))
