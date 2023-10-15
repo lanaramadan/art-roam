@@ -20,7 +20,7 @@ const Image = ({ viewedImages, setViewedImages, bannedCharacteristics, setBanned
       
             const retreivedJson = await response.json();
 
-            if (retreivedJson.thumbnail["@id"] == "/full/!170,170/0/default.jpg") {
+            if (retreivedJson.thumbnail["@id"] == "/full/!170,170/0/default.jpg" || !retreivedJson.thumbnail["@id"] || !retreivedJson.thumbnail) {
                 throw new Error('Thumbnail data is missing or broken link.');
             }
       
